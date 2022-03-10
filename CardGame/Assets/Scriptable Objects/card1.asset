@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed56d749bb98a54bbce84aa36b7cad7, type: 3}
   m_Name: card1
   m_EditorClassIdentifier: 
-  _spriteURL: https://picsum.photos/150/150
+  _spriteURL: https://picsum.photos/150
   _title: 1 Card
   _description: molijuyhtrhyjbknilmo;,;.m,liknymutjnyr/',.;o,uliy
-  _attackValue: 10
-  _hpValue: 7
+  _attackValue: 0
+  _hpValue: 50
   _manaValue: 3

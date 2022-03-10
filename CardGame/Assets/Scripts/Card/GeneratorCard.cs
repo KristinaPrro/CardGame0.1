@@ -1,6 +1,7 @@
 ﻿using Game.Data;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game.Card
 {
@@ -11,12 +12,16 @@ namespace Game.Card
         [SerializeField] private HandCardTransform _hand;
         [SerializeField] private List<CardData> _cardDataList;
         [SerializeField] private GameObject _parentGO;
+        
+        [SerializeField] private CardsHundler _cardsHundler;
 
         private List<Card> _cardList;
-
+        private UnityEvent<Card> _cardDeleted;
         private void Awake()
         {
+            _cardDeleted = new UnityEvent<Card>();
             GenerateCardInHand();
+            _hand.StartGame(_cardDeleted);
         }
 
         private void GenerateCardInHand()
@@ -28,22 +33,18 @@ namespace Game.Card
             {
                 _cardList.Add(
                     Instantiate(_cardPrefabGO, _parentGO.transform).GetComponent<Card>());
-                _cardList[i].LoadData(_cardDataList[i]);
+                _cardList[i].LoadData(_cardDataList[i], _cardDeleted);
                 _cardList[i].transform.position= _parentGO.transform.position;
 
             }
             PlaceCardInHand(_cardList);
+
         }
 
         public void PlaceCardInHand(List<Card> cardList)
         {
             _hand.CalculateCardTransform(cardList);
-            //for (int i = 0; i < cardList.Count; i++)
-            //{
-            //    cardList[i].MoveCard(positions[i]);
-            //}
+            _cardsHundler.SetCards(cardList);
         }
-
     }
-
 }

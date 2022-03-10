@@ -185,8 +185,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 5.4801}
+  m_SizeDelta: {x: 0, y: -10.9602}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7733802573540726212
 CanvasRenderer:
@@ -578,8 +578,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.00579834, y: -27.92001}
-  m_SizeDelta: {x: 99.96875, y: 100}
+  m_AnchoredPosition: {x: 1.5, y: -21.467}
+  m_SizeDelta: {x: 99.9688, y: 57.0653}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7733802574350787541
 CanvasRenderer:
@@ -981,10 +981,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _artImage: {fileID: 7733802574557275349}
-  _overlayImage: {fileID: 7733802573535637430}
-  _attackImage: {fileID: 7733802573971895830}
-  _hpImage: {fileID: 7733802574626312242}
-  _manaImage: {fileID: 7733802573222298299}
   _titleText: {fileID: 7733802573540726213}
   _descriptionText: {fileID: 7733802574020110961}
   _attackText: {fileID: 7733802575073973725}

@@ -2,6 +2,7 @@ using DG.Tweening;
 using Game.Data;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -18,21 +19,23 @@ namespace Game.Card
         [SerializeField] private Text _attackText;
         [SerializeField] private Text _hpText;
         [SerializeField] private Text _manaText;
-
-        private Sprite _artSprite;        
-
+        
         private CardData _cardData;
-        public int UpdateAttack { get => _cardData.AttackValue; 
-            set {
-                _cardData.AttackValue += value;
-                WriteText(_attackText, _cardData.AttackValue);
-            }
-        }
+        private UnityEvent<Card> _cardDeleted;
 
         public int UpdateHP { get => _cardData.AttackValue; 
             set {
                 _cardData.HPValue += value;
                 WriteText(_hpText, _cardData.HPValue);
+                if (_cardData.HPValue < 1) 
+                    DeleteCard();
+            }
+        }
+
+        public int UpdateAttack { get => _cardData.AttackValue; 
+            set {
+                _cardData.AttackValue += value;
+                WriteText(_attackText, _cardData.AttackValue);
             }
         }
 
@@ -51,11 +54,10 @@ namespace Game.Card
             transform.DORotate(turn.eulerAngles, 1.0f); 
         }
 
-        public void LoadData(CardData cardData)
+        public void LoadData(CardData cardData, UnityEvent<Card> cardDeleted)
         {
             _cardData = cardData;
-                StartCoroutine(LoadSpriteFromWeb(_cardData.SpriteURL));
-            _artImage.sprite = _artSprite;
+            StartCoroutine(LoadSpriteFromWeb(_cardData.SpriteURL));
             
             WriteText(_titleText, _cardData.Title);
             WriteText( _descriptionText, _cardData.Description);
@@ -63,7 +65,7 @@ namespace Game.Card
             WriteText(_attackText, _cardData.AttackValue);
             WriteText(_hpText, _cardData.HPValue);
             WriteText(_manaText, _cardData.ManaValue);
-            Debug.Log("LoadData " + cardData);
+            _cardDeleted=cardDeleted;
         }
 
         IEnumerator LoadSpriteFromWeb(string url)
@@ -74,8 +76,8 @@ namespace Game.Card
             yield return wr.SendWebRequest();
             if (wr.result!=UnityWebRequest.Result.ConnectionError)
             {
-                Texture2D t = texDl.texture;
-                _artSprite = Sprite.Create(t, new Rect(0, 0, t.width, t.height), Vector2.zero, 1f);
+                Texture2D texture2D = texDl.texture;
+                _artImage.sprite= Sprite.Create(texture2D, new Rect(0, 0, 150, 150), Vector2.zero, 100f);
             }
         }
 
@@ -87,6 +89,12 @@ namespace Game.Card
         private void WriteText(Text text, int value) {
             text.text = value.ToString();
 
+        }
+        private void DeleteCard()
+        {
+            _cardDeleted.Invoke(this);
+            Destroy(gameObject);
+            Destroy(this);
         }
     }
 }
