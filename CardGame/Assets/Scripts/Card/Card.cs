@@ -22,6 +22,7 @@ namespace Game.Card
         
         private CardData _cardData;
         private UnityEvent<Card> _cardDeleted;
+        private RectTransform _rTransform;
 
         public int UpdateHP { get => _cardData.AttackValue; 
             set {
@@ -48,14 +49,16 @@ namespace Game.Card
 
         public void UpdatePosition(Vector3 point) {
             transform.DOMove(point, 1.0f);
+            transform.position = point;
         }
 
-        public void UpdateRotation(Quaternion turn) {
-            transform.DORotate(turn.eulerAngles, 1.0f); 
+        public void UpdateRotation(Vector3 turn) {
+            _rTransform.DORotate( turn, 1f);
         }
 
         public void LoadData(CardData cardData, UnityEvent<Card> cardDeleted)
         {
+            _cardDeleted=cardDeleted;           
             _cardData = cardData;
             StartCoroutine(LoadSpriteFromWeb(_cardData.SpriteURL));
             
@@ -65,7 +68,7 @@ namespace Game.Card
             WriteText(_attackText, _cardData.AttackValue);
             WriteText(_hpText, _cardData.HPValue);
             WriteText(_manaText, _cardData.ManaValue);
-            _cardDeleted=cardDeleted;
+            _rTransform = gameObject.GetComponent<RectTransform>();
         }
 
         IEnumerator LoadSpriteFromWeb(string url)

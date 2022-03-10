@@ -50,8 +50,13 @@ namespace Game.Card
         {
             for (int i = 0; i < cardCount; i++)
             {
-                Vector3 newDir = Vector3.RotateTowards(transform.forward, _cardList[i].transform.position, 0, 0.0F);
-                _cardList[i].UpdateRotation(Quaternion.LookRotation(newDir));
+                Vector3 lookPointPos = _cardList[i].transform.position;
+                Vector3 V0 = lookPointPos - _rightHandPos.position;
+                Vector3 V1 = new Vector3(0, 1, 0);
+
+                float znak = (lookPointPos.x - _rightHandPos.position.x)< 0 ? 1 : -1;
+                Vector3 rot = new Vector3(0, 0,Vector3.Angle(V0, V1)* znak); 
+                _cardList[i].UpdateRotation(rot);
             }
         }
     }
