@@ -9,6 +9,7 @@ namespace Game.Card
     {
         [SerializeField] private GameObject _cardPrefabGO;
         [SerializeField] private int _maxCountCard=9;
+        [SerializeField] private int _minCountCard=4;
         [SerializeField] private HandCardTransform _hand;
         [SerializeField] private List<CardData> _cardDataList;
         [SerializeField] private GameObject _parentGO;
@@ -27,7 +28,7 @@ namespace Game.Card
         private void GenerateCardInHand()
         {
             _cardList = new List<Card>();
-            int count = Random.Range(1, _maxCountCard);
+            int count = Random.Range(_minCountCard, _maxCountCard);
             Debug.Log("count "+ count);
             for (int i = 0; i < count; i++)
             {

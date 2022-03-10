@@ -1069,6 +1069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cardPrefabGO: {fileID: 7733802575268712289, guid: 38dbc926360dd5c41831a88d869d3557, type: 3}
   _maxCountCard: 9
+  _minCountCard: 4
   _hand: {fileID: 361616984}
   _cardDataList:
   - {fileID: 11400000, guid: d0daf3a23dfee814f9d0e112558e6cb1, type: 2}
@@ -1095,8 +1096,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1526386177}
-  _minDelta: -10
-  _maxDelta: 0
+  _minDelta: -5
+  _maxDelta: 5
 --- !u!4 &1712128034
 Transform:
   m_ObjectHideFlags: 0
